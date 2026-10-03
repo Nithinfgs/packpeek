@@ -1,0 +1,31 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Pack and inspect with packpeek itself
+        run: |
+          npm pack --silent
+          node dist/src/cli.js packpeek-*.tgz --fail-on medium
+      - name: Create GitHub release with the tarball attached
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1 \
+            && gh release upload "$GITHUB_REF_NAME" packpeek-*.tgz --clobber \
+            || gh release create "$GITHUB_REF_NAME" packpeek-*.tgz --generate-notes

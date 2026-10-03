@@ -1,0 +1,27 @@
+name: False positive or missed leak
+description: A finding that should not fire, or a leak packpeek did not catch
+labels: [rule]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Which is it?
+      options: [False positive, Missed leak (false negative)]
+    validations:
+      required: true
+  - type: input
+    id: rule
+    attributes:
+      label: Rule id
+      description: e.g. secret, sourcemap, local-path (run `packpeek rules` for the list)
+  - type: textarea
+    id: sample
+    attributes:
+      label: Minimal reproduction
+      description: The smallest file or package layout that triggers it. Use fake values, never real secrets.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why is this wrong?
