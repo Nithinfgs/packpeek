@@ -41,6 +41,22 @@ export function redact(value: string): string {
   return `${value.slice(0, 4)}…(${value.length} chars)`;
 }
 
+/** Greedy word wrap. Never splits a word; long words overflow their line. */
+export function wrapText(text: string, width: number): string[] {
+  const out: string[] = [];
+  let line = "";
+  for (const word of text.split(/\s+/)) {
+    if (line && line.length + 1 + word.length > width) {
+      out.push(line);
+      line = word;
+    } else {
+      line = line ? `${line} ${word}` : word;
+    }
+  }
+  if (line) out.push(line);
+  return out;
+}
+
 export function pad(s: string, width: number): string {
   return s.length >= width ? s : s + " ".repeat(width - s.length);
 }

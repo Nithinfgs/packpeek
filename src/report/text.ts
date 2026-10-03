@@ -1,6 +1,6 @@
 import type { DiffResult } from "../diff.js";
 import { SEVERITIES, severityRank, type Finding, type Report, type Severity } from "../types.js";
-import { formatBytes, pad, plural } from "../util.js";
+import { formatBytes, pad, plural, wrapText } from "../util.js";
 import type { Style } from "./style.js";
 
 const LABEL: Record<Severity, string> = { critical: "CRITICAL", high: "HIGH", medium: "MEDIUM", low: "LOW", info: "INFO" };
@@ -63,16 +63,16 @@ export function renderInside(report: Report, files: Array<{ path: string; size: 
   return out;
 }
 
-function renderFinding(f: Finding, s: Style, seenHints: Set<string>): string[] {
+function renderFinding(f: Finding, s: Style, seenHints: Set<string>, width: number): string[] {
   const out: string[] = [];
   const badge = paint(s, f.severity, `${pad(LABEL[f.severity], 8)}`);
   const loc = f.path ? s.bold(f.path + (f.line ? `:${f.line}` : "")) : "";
   out.push(`  ${paint(s, f.severity, "●")} ${badge} ${s.magenta(pad(f.rule, 14))} ${loc}`);
-  out.push(`      ${f.message}`);
-  if (f.detail) out.push(`      ${s.gray(f.detail)}`);
+  for (const l of wrapText(f.message, width - 6)) out.push(`      ${l}`);
+  if (f.detail) out.push(`      ${s.gray(f.detail.length > width - 6 ? f.detail.slice(0, width - 7) + "…" : f.detail)}`);
   if (f.hint && !seenHints.has(f.hint)) {
     seenHints.add(f.hint);
-    out.push(`      ${s.green("fix:")} ${s.dim(f.hint)}`);
+    wrapText(f.hint, width - 11).forEach((l, i) => out.push(`      ${i === 0 ? s.green("fix:") : "    "} ${s.dim(l)}`));
   }
   return out;
 }
@@ -87,7 +87,7 @@ export function summaryLine(findings: Finding[], s: Style): string {
   return parts.join(s.gray(" · "));
 }
 
-export function renderText(report: Report, files: Array<{ path: string; size: number }>, s: Style, opts: { top: number; failOn: string; verbose: boolean }): string {
+export function renderText(report: Report, files: Array<{ path: string; size: number }>, s: Style, opts: { top: number; failOn: string; verbose: boolean; width: number }): string {
   const a = report.artifact;
   const id = [a.name, a.version].filter(Boolean).join("@") || a.source;
   const out: string[] = [];
@@ -102,7 +102,7 @@ export function renderText(report: Report, files: Array<{ path: string; size: nu
   if (shown.length > 0) out.push("");
   const seenHints = new Set<string>();
   for (const f of shown) {
-    out.push(...renderFinding(f, s, seenHints));
+    out.push(...renderFinding(f, s, seenHints, opts.width));
     out.push("");
   }
   if (hiddenInfo > 0) out.push(s.gray(`  ${plural(hiddenInfo, "info note")} hidden (use --verbose)`));
@@ -110,7 +110,7 @@ export function renderText(report: Report, files: Array<{ path: string; size: nu
   return out.join("\n") + "\n";
 }
 
-export function renderDiffText(d: DiffResult, s: Style, opts: { top: number }): string {
+export function renderDiffText(d: DiffResult, s: Style, opts: { top: number; width: number }): string {
   const out: string[] = [];
   const a = d.next.artifact;
   const oldId = [d.old.artifact.name, d.old.artifact.version].filter(Boolean).join("@") || d.old.artifact.source;
@@ -120,7 +120,8 @@ export function renderDiffText(d: DiffResult, s: Style, opts: { top: number }): 
   out.push("");
   const sign = d.sizeDelta >= 0 ? "+" : "−";
   const delta = `${sign}${formatBytes(Math.abs(d.sizeDelta))}`;
-  const pct = d.old.totalSize === 0 ? "" : ` (${d.growthPct >= 0 ? "+" : ""}${d.growthPct.toFixed(1)}%)`;
+  const ratio = d.old.totalSize === 0 ? 0 : d.next.totalSize / d.old.totalSize;
+  const pct = d.old.totalSize === 0 ? "" : ratio >= 10 ? ` (${Math.round(ratio)}× larger)` : ` (${d.growthPct >= 0 ? "+" : ""}${d.growthPct.toFixed(1)}%)`;
   out.push(`  size      ${formatBytes(d.old.totalSize)} → ${formatBytes(d.next.totalSize)}   ${d.sizeDelta > 0 ? s.yellow(delta + pct) : s.green(delta + pct)}`);
   out.push(`  files     ${d.old.fileCount} → ${d.next.fileCount}   ${s.green(`+${d.added.length}`)} ${s.red(`−${d.removed.length}`)} ${s.gray(`~${d.changed.length} changed`)}`);
   if (d.added.length > 0) {
@@ -140,7 +141,7 @@ export function renderDiffText(d: DiffResult, s: Style, opts: { top: number }): 
   if (d.newFindings.length > 0) out.push("");
   const seenHints = new Set<string>();
   for (const f of d.newFindings.filter((x) => severityRank(x.severity) > 0)) {
-    out.push(...renderFinding(f, s, seenHints));
+    out.push(...renderFinding(f, s, seenHints, opts.width));
     out.push("");
   }
   return out.join("\n") + "\n";
