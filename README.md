@@ -26,7 +26,7 @@ That generates a deliberately leaky package in a temp directory and inspects it.
 cd your-package && npx github:Nithinfgs/packpeek
 ```
 
-> **Install note.** packpeek is not on the npm registry yet. The command above builds it from this repo on first run (about 15 seconds). A prebuilt tarball is attached to each [GitHub release](https://github.com/Nithinfgs/packpeek/releases): `npx https://github.com/Nithinfgs/packpeek/releases/download/v0.1.0/packpeek-0.1.0.tgz`.
+> **Install note.** packpeek is not on the npm registry yet. The command above builds it from this repo on first run (a few seconds). A prebuilt tarball is attached to each [GitHub release](https://github.com/Nithinfgs/packpeek/releases): `npx https://github.com/Nithinfgs/packpeek/releases/download/v0.1.0/packpeek-0.1.0.tgz`.
 
 ## The 20-second version
 
