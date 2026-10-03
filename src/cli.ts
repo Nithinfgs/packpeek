@@ -108,6 +108,7 @@ function main(argv: string[]): number {
 
   const format = values.json ? "json" : (values.format ?? "text");
   if (!["text", "json", "github", "markdown"].includes(format)) throw new PackpeekError(`Unknown --format "${format}".`);
+  const width = Math.max(60, Math.min(process.stdout.columns ?? 100, 110));
   const top = values.top ? Math.max(1, parseInt(values.top, 10) || 5) : 5;
   const style = makeStyle(colorEnabled(process.stdout, Boolean(values["no-color"])));
   const loadOpts = { cwd, pack: Boolean(values.pack), config };
@@ -125,7 +126,7 @@ function main(argv: string[]): number {
       process.stderr.write(style.dim("Generated a deliberately leaky npm package in a temp dir. Nothing is published.\n"));
       const artifact = loadArtifact(dir, { ...loadOpts, cwd: dir });
       const report = analyze(artifact, config);
-      process.stdout.write(renderText(report, artifact.files, style, { top, failOn: config.failOn, verbose: Boolean(values.verbose) }));
+      process.stdout.write(renderText(report, artifact.files, style, { top, failOn: config.failOn, verbose: Boolean(values.verbose), width }));
       process.stderr.write(style.dim("Run `packpeek` inside your own package to see yours.\n"));
     } finally {
       rmSync(dir, { recursive: true, force: true });
@@ -142,7 +143,7 @@ function main(argv: string[]): number {
     if (format === "json") process.stdout.write(renderDiffJson(d));
     else if (format === "markdown") process.stdout.write(renderDiffMarkdown(d));
     else if (format === "github") process.stdout.write(renderGithub({ ...d.next, findings: d.newFindings }));
-    else process.stdout.write(renderDiffText(d, style, { top }));
+    else process.stdout.write(renderDiffText(d, style, { top, width }));
     const maxGrowth = values["max-growth"] !== undefined ? parseFloat(values["max-growth"]) : undefined;
     const grew = maxGrowth !== undefined && d.growthPct > maxGrowth;
     if (grew) process.stderr.write(`Unpacked size grew ${d.growthPct.toFixed(1)}% (limit ${maxGrowth}%).\n`);
@@ -156,7 +157,7 @@ function main(argv: string[]): number {
   if (format === "json") process.stdout.write(renderJson(report));
   else if (format === "markdown") process.stdout.write(renderMarkdown(report));
   else if (format === "github") process.stdout.write(renderGithub(report));
-  else process.stdout.write(renderText(report, artifact.files, style, { top, failOn: config.failOn, verbose: Boolean(values.verbose) }));
+  else process.stdout.write(renderText(report, artifact.files, style, { top, failOn: config.failOn, verbose: Boolean(values.verbose), width }));
   return exceedsThreshold(report, config) ? 1 : 0;
 }
 
