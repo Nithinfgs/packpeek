@@ -1,0 +1,10 @@
+{
+  "failOn": "medium",
+  "maxFileSize": "2mb",
+  "maxTotalSize": "10mb",
+  "ignore": [
+    "unintended",
+    { "rule": "sourcemap", "path": "dist/vendor/**" },
+    "local-path:docs/**"
+  ]
+}
