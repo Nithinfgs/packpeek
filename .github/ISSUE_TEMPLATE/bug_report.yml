@@ -1,0 +1,29 @@
+name: Bug report
+description: packpeek crashed, mis-parsed an artifact, or gave a wrong result
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: Include the command you ran and the output. Redact any secrets; packpeek already redacts tokens in its own output.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: Output of `packpeek --version`, `node -v`, and your OS
+    validations:
+      required: true
+  - type: input
+    id: artifact
+    attributes:
+      label: Artifact type
+      description: npm tarball / project dir / wheel / sdist / crate / plain directory
