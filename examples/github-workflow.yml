@@ -1,0 +1,29 @@
+# Drop into .github/workflows/publish-check.yml
+name: publish-check
+
+on:
+  pull_request:
+  push:
+    tags: ["v*"]
+
+jobs:
+  packpeek:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci && npm run build
+
+      # 1. Fail the build on high/critical findings; annotate the PR.
+      - run: npx github:Nithinfgs/packpeek#v0.1.0 --fail-on high --format github
+
+      # 2. Compare with the version currently on the registry; fail if the package grew > 25%.
+      #    (Skip this step for a package that has never been published.)
+      - run: npx github:Nithinfgs/packpeek#v0.1.0 diff npm:latest --max-growth 25
+
+      # 3. Put the table in the job summary.
+      - run: npx github:Nithinfgs/packpeek#v0.1.0 --fail-on none --format markdown >> "$GITHUB_STEP_SUMMARY"

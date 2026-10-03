@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="912" viewBox="0 0 940 912" role="img" aria-label="Terminal output of packpeek demo: a leaky npm package with critical secrets, an embedded source map and a broken types entry">
+<style>
+  text { font: 13px ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; white-space: pre; }
+</style>
+<rect width="940" height="912" rx="10" fill="#0d1117"/>
+<rect width="940" height="32" rx="10" fill="#161b22"/>
+<rect y="22" width="940" height="10" fill="#161b22"/>
+<circle cx="20" cy="16" r="6" fill="#ff5f56"/><circle cx="40" cy="16" r="6" fill="#ffbd2e"/><circle cx="60" cy="16" r="6" fill="#27c93f"/>
+<text x="470" y="20" fill="#8b949e" text-anchor="middle" style="font-size:12px">packpeek demo</text>
+<text x="24" y="52" xml:space="preserve"><tspan fill="#7ee787">$</tspan><tspan fill="#c9d1d9"> npx packpeek demo</tspan></text>
+<text x="24" y="71" xml:space="preserve"><tspan fill="#c9d1d9" font-weight="700">packpeek</tspan><tspan fill="#c9d1d9">  </tspan><tspan fill="#c9d1d9" font-weight="700">acme-cli@2.4.0</tspan><tspan fill="#c9d1d9">  </tspan><tspan fill="#8b949e">(npm · 13 files · 1.3 MB unpacked)</tspan></text>
+<text x="24" y="90" xml:space="preserve"></text>
+<text x="24" y="109" xml:space="preserve"><tspan fill="#c9d1d9" font-weight="700">WHAT'S INSIDE</tspan></text>
+<text x="24" y="128" xml:space="preserve"><tspan fill="#c9d1d9">  coverage/     </tspan><tspan fill="#79c0ff">██████████████████████</tspan><tspan fill="#c9d1d9">  586 KB    </tspan><tspan fill="#8b949e">1 file</tspan></text>
+<text x="24" y="147" xml:space="preserve"><tspan fill="#c9d1d9">  dist/         </tspan><tspan fill="#79c0ff">████████████████████░░</tspan><tspan fill="#c9d1d9">  528 KB    </tspan><tspan fill="#8b949e">6 files</tspan></text>
+<text x="24" y="166" xml:space="preserve"><tspan fill="#c9d1d9">  test/         </tspan><tspan fill="#79c0ff">█████████░░░░░░░░░░░░░</tspan><tspan fill="#c9d1d9">  229 KB    </tspan><tspan fill="#8b949e">2 files</tspan></text>
+<text x="24" y="185" xml:space="preserve"><tspan fill="#c9d1d9">  (root files)  </tspan><tspan fill="#79c0ff">█░░░░░░░░░░░░░░░░░░░░░</tspan><tspan fill="#c9d1d9">  400 B     </tspan><tspan fill="#8b949e">2 files</tspan></text>
+<text x="24" y="204" xml:space="preserve"><tspan fill="#c9d1d9">  src/          </tspan><tspan fill="#79c0ff">█░░░░░░░░░░░░░░░░░░░░░</tspan><tspan fill="#c9d1d9">  31 B      </tspan><tspan fill="#8b949e">1 file</tspan></text>
+<text x="24" y="223" xml:space="preserve"><tspan fill="#c9d1d9">  docs/         </tspan><tspan fill="#79c0ff">█░░░░░░░░░░░░░░░░░░░░░</tspan><tspan fill="#c9d1d9">  8 B       </tspan><tspan fill="#8b949e">1 file</tspan></text>
+<text x="24" y="242" xml:space="preserve"></text>
+<text x="24" y="261" xml:space="preserve"><tspan fill="#c9d1d9" font-weight="700">LARGEST FILES</tspan></text>
+<text x="24" y="280" xml:space="preserve"><tspan fill="#c9d1d9">  586 KB    coverage/lcov-report/index.html</tspan></text>
+<text x="24" y="299" xml:space="preserve"><tspan fill="#c9d1d9">  527 KB    dist/cli.js.map</tspan></text>
+<text x="24" y="318" xml:space="preserve"><tspan fill="#c9d1d9">  229 KB    test/fixtures/big.json</tspan></text>
+<text x="24" y="337" xml:space="preserve"></text>
+<text x="24" y="356" xml:space="preserve"><tspan fill="#c9d1d9" font-weight="700">FINDINGS  </tspan><tspan fill="#ff7b72" font-weight="700">2 critical</tspan><tspan fill="#8b949e"> · </tspan><tspan fill="#ff7b72">3 high</tspan><tspan fill="#8b949e"> · </tspan><tspan fill="#e3b341">5 medium</tspan><tspan fill="#8b949e"> · </tspan><tspan fill="#79c0ff">3 low</tspan></text>
+<text x="24" y="375" xml:space="preserve"></text>
+<text x="24" y="394" xml:space="preserve"><tspan fill="#c9d1d9">  </tspan><tspan fill="#ff7b72" font-weight="700">●</tspan><tspan fill="#c9d1d9"> </tspan><tspan fill="#ff7b72" font-weight="700">CRITICAL</tspan><tspan fill="#c9d1d9"> </tspan><tspan fill="#d2a8ff">secret        </tspan><tspan fill="#c9d1d9"> </tspan><tspan fill="#c9d1d9" font-weight="700">.env:2</tspan></text>
+<text x="24" y="413" xml:space="preserve"><tspan fill="#c9d1d9">      Stripe live key found in shipped file.</tspan></text>
+<text x="24" y="432" xml:space="preserve"><tspan fill="#c9d1d9">      </tspan><tspan fill="#8b949e">sk_l…(32 chars)</tspan></text>
+<text x="24" y="451" xml:space="preserve"><tspan fill="#c9d1d9">      </tspan><tspan fill="#7ee787">fix:</tspan><tspan fill="#c9d1d9"> </tspan><tspan fill="#c9d1d9" opacity="0.7">Revoke and rotate this credential: anything published to a registry should be treated as</tspan></text>
+<text x="24" y="470" xml:space="preserve"><tspan fill="#c9d1d9">           </tspan><tspan fill="#c9d1d9" opacity="0.7">public and cached forever. Then remove the file from the artifact.</tspan></text>
+<text x="24" y="489" xml:space="preserve"></text>
+<text x="24" y="508" xml:space="preserve"><tspan fill="#c9d1d9">  </tspan><tspan fill="#ff7b72" font-weight="700">●</tspan><tspan fill="#c9d1d9"> </tspan><tspan fill="#ff7b72" font-weight="700">CRITICAL</tspan><tspan fill="#c9d1d9"> </tspan><tspan fill="#d2a8ff">secret        </tspan><tspan fill="#c9d1d9"> </tspan><tspan fill="#c9d1d9" font-weight="700">dist/config.js:3</tspan></text>
+<text x="24" y="527" xml:space="preserve"><tspan fill="#c9d1d9">      GitHub token found in shipped file.</tspan></text>
+<text x="24" y="546" xml:space="preserve"><tspan fill="#c9d1d9">      </tspan><tspan fill="#8b949e">ghp_…(40 chars)</tspan></text>
+<text x="24" y="565" xml:space="preserve"></text>
+<text x="24" y="584" xml:space="preserve"><tspan fill="#c9d1d9">  </tspan><tspan fill="#ff7b72">●</tspan><tspan fill="#c9d1d9"> </tspan><tspan fill="#ff7b72">HIGH    </tspan><tspan fill="#c9d1d9"> </tspan><tspan fill="#d2a8ff">npm-manifest  </tspan><tspan fill="#c9d1d9"> </tspan><tspan fill="#c9d1d9" font-weight="700">package.json</tspan></text>
+<text x="24" y="603" xml:space="preserve"><tspan fill="#c9d1d9">      "types" points to dist/index.d.ts, which is not in the package. Installing it will break.</tspan></text>
+<text x="24" y="622" xml:space="preserve"><tspan fill="#c9d1d9">      </tspan><tspan fill="#7ee787">fix:</tspan><tspan fill="#c9d1d9"> </tspan><tspan fill="#c9d1d9" opacity="0.7">Did the build run before packing? Or is the output directory missing from the files</tspan></text>
+<text x="24" y="641" xml:space="preserve"><tspan fill="#c9d1d9">           </tspan><tspan fill="#c9d1d9" opacity="0.7">allowlist?</tspan></text>
+<text x="24" y="660" xml:space="preserve"></text>
+<text x="24" y="679" xml:space="preserve"><tspan fill="#c9d1d9">  </tspan><tspan fill="#ff7b72">●</tspan><tspan fill="#c9d1d9"> </tspan><tspan fill="#ff7b72">HIGH    </tspan><tspan fill="#c9d1d9"> </tspan><tspan fill="#d2a8ff">sensitive-file</tspan><tspan fill="#c9d1d9"> </tspan><tspan fill="#c9d1d9" font-weight="700">.env</tspan></text>
+<text x="24" y="698" xml:space="preserve"><tspan fill="#c9d1d9">      Environment file. These usually hold real credentials.</tspan></text>
+<text x="24" y="717" xml:space="preserve"><tspan fill="#c9d1d9">      </tspan><tspan fill="#7ee787">fix:</tspan><tspan fill="#c9d1d9"> </tspan><tspan fill="#c9d1d9" opacity="0.7">Exclude it with the package.json files allowlist, .npmignore, MANIFEST.in or your build</tspan></text>
+<text x="24" y="736" xml:space="preserve"><tspan fill="#c9d1d9">           </tspan><tspan fill="#c9d1d9" opacity="0.7">config.</tspan></text>
+<text x="24" y="755" xml:space="preserve"></text>
+<text x="24" y="774" xml:space="preserve"><tspan fill="#c9d1d9">  </tspan><tspan fill="#ff7b72">●</tspan><tspan fill="#c9d1d9"> </tspan><tspan fill="#ff7b72">HIGH    </tspan><tspan fill="#c9d1d9"> </tspan><tspan fill="#d2a8ff">sourcemap     </tspan><tspan fill="#c9d1d9"> </tspan><tspan fill="#c9d1d9" font-weight="700">dist/cli.js.map</tspan></text>
+<text x="24" y="793" xml:space="preserve"><tspan fill="#c9d1d9">      Embeds 42 original source files (499 KB) verbatim in sourcesContent.</tspan></text>
+<text x="24" y="812" xml:space="preserve"><tspan fill="#c9d1d9">      </tspan><tspan fill="#7ee787">fix:</tspan><tspan fill="#c9d1d9"> </tspan><tspan fill="#c9d1d9" opacity="0.7">Anyone can recover your readable source from this package. Don't emit maps for the</tspan></text>
+<text x="24" y="831" xml:space="preserve"><tspan fill="#c9d1d9">           </tspan><tspan fill="#c9d1d9" opacity="0.7">published build, set sourcesContent: false, or exclude *.map via the files allowlist.</tspan></text>
+<text x="24" y="850" xml:space="preserve"></text>
+<text x="24" y="869" xml:space="preserve"><tspan fill="#8b949e">  … 8 more findings. Run it yourself to see them all.</tspan></text>
+</svg>
