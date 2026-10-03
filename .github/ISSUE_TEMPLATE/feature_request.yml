@@ -1,0 +1,15 @@
+name: Feature request
+description: A new rule, artifact type or output format
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What publishing mistake or workflow is this for?
+      description: A real incident or example is the most useful thing you can include.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Proposed behaviour
